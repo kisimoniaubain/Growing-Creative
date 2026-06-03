@@ -149,7 +149,7 @@ function Donate() {
   const [monthlyImpactPrograms, setMonthlyImpactPrograms] = useState(defaultMonthlyImpactPrograms);
   const [oneTimeTiers, setOneTimeTiers] = useState(defaultOneTimeTiers);
   const [heroContent, setHeroContent] = useState({
-    headline: "Capitalize the Future: Expand the SSEY-C Revolving Fund",
+    headline: "Capitalize the Future: Expand the Growing Creative Revolving Fund",
     subheadline:
       "100% of your contribution directly funds youth seed loans and critical workshop machinery. Because our fund is revolving, your capital is repaid, recycled, and reinvested to empower generation after generation of young African entrepreneurs.",
   });
@@ -283,10 +283,10 @@ function Donate() {
   );
 
   const activePresetTiers = donationFrequency === "monthly" ? monthlyPresetTiers : oneTimeTiers;
-  const smsPrefillMessage = `Hello, I am sending a donation of ${currency} ${numericAmount || ""} to SSEY-C receiver ${mobileMoneyDialNumber}.`;
+  const smsPrefillMessage = `Hello, I am sending a donation of ${currency} ${numericAmount || ""} to Growing Creative receiver ${mobileMoneyDialNumber}.`;
   const donorSmsNumber = normalizeSmsRecipient(donorMobileNumber);
   const transactionCodeHint = mobileTransactionCode.trim().toUpperCase() || "PASTE_MPESA_CODE";
-  const donorSmsPrefillMessage = `SSEY-C donation reminder: send ${currency} ${numericAmount || ""} to ${mobileMoneyDialNumber}, then paste transaction code ${transactionCodeHint} in the form.`;
+  const donorSmsPrefillMessage = `Growing Creative donation reminder: send ${currency} ${numericAmount || ""} to ${mobileMoneyDialNumber}, then paste transaction code ${transactionCodeHint} in the form.`;
   const normalizedTransactionCode = mobileTransactionCode.trim().toUpperCase();
   const hasTransactionCodeInput = normalizedTransactionCode.length > 0;
   const isTransactionCodeValid = /^[A-Z][A-Z0-9]{9}$/.test(normalizedTransactionCode);
@@ -403,7 +403,7 @@ function Donate() {
 
     pdf.setFont("helvetica", "bold");
     pdf.setFontSize(18);
-    pdf.text("SSEY-C Contribution Receipt", left, 72);
+    pdf.text("Growing Creative Contribution Receipt", left, 72);
 
     pdf.setFont("helvetica", "normal");
     pdf.setFontSize(11);
@@ -434,7 +434,7 @@ function Donate() {
     pdf.setFontSize(10);
     pdf.text("This receipt is generated automatically for tax, grant, and compliance reporting.", left, 730);
 
-    pdf.save(`SSEYC-Receipt-${receipt.transactionId}.pdf`);
+    pdf.save(`Growing Creative-Receipt-${receipt.transactionId}.pdf`);
   };
 
   const handleSubmit = async (event) => {
@@ -675,7 +675,7 @@ function Donate() {
               <div className="lg:col-span-5">
                 <h3 className="font-display text-2xl font-extrabold text-ink dark:text-slate-100">Why Financial Backing Matters</h3>
                 <p className="mt-3 text-sm leading-relaxed text-ink/70 dark:text-slate-300">
-                  Traditional commercial banks often reject young graduates due to lack of collateral. By backing SSEY-C, you provide the
+                  Traditional commercial banks often reject young graduates due to lack of collateral. By backing Growing Creative, you provide the
                   runway youth need to become self-sufficient business leaders.
                 </p>
                 <div className="mt-5 rounded-2xl border border-mint/30 bg-mint/15 p-4 text-sm leading-relaxed text-ocean dark:border-mint/20 dark:bg-mint/10 dark:text-mint">
@@ -1165,3 +1165,4 @@ function Donate() {
 }
 
 export default Donate;
+

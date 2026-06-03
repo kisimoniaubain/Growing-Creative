@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const pulseMetrics = [
   { label: "Total Jobs Created", value: "300+", note: "Youth Self-Employed" },
   { label: "Capital Velocity", value: "$30,000", note: "Capital Disbursed via Revolving Fund" },
-  { label: "Market Traction", value: "128", note: "Active Storefronts on SSE Marketplace" },
+  { label: "Market Traction", value: "128", note: "Active Storefronts on Growing Creative Marketplace" },
   { label: "Economic Lift", value: "+87%", note: "Average Increase in Participant Household Income" },
 ];
 
@@ -67,9 +67,9 @@ const reportDownloads = [
     href: "/docs/Revolving_Fund_Financial_Audit_Repayment_Matrix.pdf",
   },
   {
-    label: "SSE M&E Data Collection Methodology Framework",
+    label: "Growing Creative M&E Data Collection Methodology Framework",
     fileSize: "PDF | 1.5 MB",
-    href: "/docs/SSE_ME_Data_Collection_Methodology_Framework.pdf",
+    href: "/docs/Growing Creative_ME_Data_Collection_Methodology_Framework.pdf",
   },
 ];
 
@@ -172,7 +172,7 @@ function ImpactGovernanceME() {
           Transparency in Action: Our Impact & Governance
         </h1>
         <p className="mt-4 text-ink/75 dark:text-slate-300">
-          Programmatic accountability, rigorous monitoring, and verified community outcomes for the SSE Initiative.
+          Programmatic accountability, rigorous monitoring, and verified community outcomes for the Growing Creative Initiative.
         </p>
 
         <div className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
@@ -266,3 +266,4 @@ function ImpactGovernanceME() {
 }
 
 export default ImpactGovernanceME;
+

@@ -59,7 +59,7 @@ function Newsroom() {
         </h1>
         <p className="mt-4 max-w-3xl text-lg text-ink/65 dark:text-slate-300">
           Live operational updates, press releases, ecosystem announcements, and field insights direct from the
-          SSE Innovation Hub.
+          Growing Creative Innovation Hub.
         </p>
       </div>
 
@@ -154,3 +154,4 @@ function Newsroom() {
 }
 
 export default Newsroom;
+

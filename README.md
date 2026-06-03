@@ -1,11 +1,11 @@
-# SSE.org Project
+# Growing Creative Project
 
-A complete MERN-style web platform for **Sustainable Self Employment (SSE.org)**.
+A complete MERN-style web platform for **Sustainable Self Employment (Growing Creative)**.
 
 ## Project Structure
 
 ```plaintext
-SSE-ORG-PROJECT/
+Growing Creative-ORG-PROJECT/
 ├── backend/
 │   ├── server.js
 │   ├── config/
@@ -43,7 +43,7 @@ SSE-ORG-PROJECT/
 ### Quick Start (Run Both From Root)
 
 ```bash
-cd SSE-ORG-PROJECT
+cd Growing Creative-ORG-PROJECT
 npm run install:all
 npm run dev
 ```
@@ -115,5 +115,6 @@ npm run dev
 ## Notes
 
 - The current marketplace uses placeholder sample products.
-- Image assets currently use hosted placeholders and can be replaced with real SSE.org media.
+- Image assets currently use hosted placeholders and can be replaced with real Growing Creative media.
 - The Hub form is fully connected to backend storage.
+

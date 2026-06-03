@@ -90,7 +90,7 @@ const journeySteps = [
   {
     id: "4",
     title: "Market Linkages",
-    summary: "SSE Online Marketplace and B2B pathways for growth.",
+    summary: "Growing Creative Online Marketplace and B2B pathways for growth.",
   },
 ];
 
@@ -129,7 +129,7 @@ const successStories = [
 
 function Home() {
   const handleProposalDownload = async () => {
-    const proposalPath = "/docs/SSE_Project_Proposal.pdf";
+    const proposalPath = "/docs/Growing Creative_Project_Proposal.pdf";
     try {
       const response = await fetch(proposalPath);
       if (!response.ok) throw new Error("Download failed");
@@ -138,7 +138,7 @@ function Home() {
       const blobUrl = URL.createObjectURL(blob);
       const tempLink = document.createElement("a");
       tempLink.href = blobUrl;
-      tempLink.download = "SSE_Project_Proposal.pdf";
+      tempLink.download = "Growing Creative_Project_Proposal.pdf";
       document.body.appendChild(tempLink);
       tempLink.click();
       tempLink.remove();
@@ -493,3 +493,4 @@ function Home() {
 }
 
 export default Home;
+

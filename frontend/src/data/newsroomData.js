@@ -36,7 +36,7 @@ export const newsroomPosts = [
     category: "MARKET LINKAGES",
     categoryKey: "market-linkages",
     title:
-      "SSE Launches 2026 Creative Trade Fair Series to Connect Local Graduates with B2B Corporate Contracts.",
+      "Growing Creative Launches 2026 Creative Trade Fair Series to Connect Local Graduates with B2B Corporate Contracts.",
     excerpt:
       "Our Phase 4 pipeline has officially moved into the commercial sector. This month, 45 graduates from Fashion and Arts debuted storefronts to regional buyers and secured immediate bulk supply contracts.",
     published: "May 24, 2026",
@@ -83,7 +83,7 @@ export const newsroomPosts = [
     category: "PARTNERSHIPS",
     categoryKey: "partnerships",
     title:
-      "SSE Welcomes New Regional Corporate Allies to the $30,000 Revolving Fund Portfolio.",
+      "Growing Creative Welcomes New Regional Corporate Allies to the $30,000 Revolving Fund Portfolio.",
     excerpt:
       "Documenting new financial agreements aimed at scaling micro-loan access to $1,000 caps for advanced technical tracks.",
     published: "May 6, 2026",
@@ -178,3 +178,4 @@ export const loadNewsroomContent = async () => {
 };
 
 export const getNewsPostBySlug = (slug, posts = newsroomPosts) => posts.find((post) => post.slug === slug);
+

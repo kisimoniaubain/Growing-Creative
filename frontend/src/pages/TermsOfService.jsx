@@ -40,7 +40,7 @@ function TermsOfService() {
           <section>
             <h2 className="font-display text-xl font-bold text-ink dark:text-slate-100">5. Intellectual Property</h2>
             <p className="mt-2">
-              Unless otherwise stated, website content, branding, and published materials are owned by SSE or used with permission and may not
+              Unless otherwise stated, website content, branding, and published materials are owned by Growing Creative or used with permission and may not
               be reused for commercial purposes without authorization.
             </p>
           </section>
@@ -56,7 +56,7 @@ function TermsOfService() {
           <section>
             <h2 className="font-display text-xl font-bold text-ink dark:text-slate-100">7. Limitation of Liability</h2>
             <p className="mt-2">
-              To the maximum extent permitted by law, SSE is not liable for indirect or consequential losses resulting from website use,
+              To the maximum extent permitted by law, Growing Creative is not liable for indirect or consequential losses resulting from website use,
               service interruption, or reliance on posted information.
             </p>
           </section>
@@ -81,3 +81,4 @@ function TermsOfService() {
 }
 
 export default TermsOfService;
+

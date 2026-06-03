@@ -48,7 +48,7 @@ const journeySteps = [
     description:
       "Graduation is just the beginning. To ensure long-term self-employment, we provide immediate, structural entry into the commercial market.",
     bullets: [
-      "SSE Online Marketplace: Instant placement on our custom e-commerce platform, exposing finished products to regional and global buyers.",
+      "Growing Creative Online Marketplace: Instant placement on our custom e-commerce platform, exposing finished products to regional and global buyers.",
       "Expos & Showcases: Opportunities to exhibit physical items at Hub-sponsored community markets and trade fairs.",
       "B2B Pipelines: Direct connections to corporate contracts and local retail partnerships.",
     ],
@@ -128,9 +128,9 @@ function HowItWorks() {
                         <>
                           Micro-Loans: Flexible micro-funding ranging from <span className="font-extrabold text-ocean dark:text-mint">$200 to $1,000</span> based on business scale and initial material needs.
                         </>
-                      ) : bullet.includes("SSE Online Marketplace") ? (
+                      ) : bullet.includes("Growing Creative Online Marketplace") ? (
                         <>
-                          <span className="font-extrabold text-ocean dark:text-mint">SSE Online Marketplace</span>: Instant placement on our custom e-commerce platform, exposing finished products to regional and global buyers.
+                          <span className="font-extrabold text-ocean dark:text-mint">Growing Creative Online Marketplace</span>: Instant placement on our custom e-commerce platform, exposing finished products to regional and global buyers.
                         </>
                       ) : (
                         bullet
@@ -171,9 +171,9 @@ function HowItWorks() {
                         <>
                           Micro-Loans: Flexible micro-funding ranging from <span className="font-extrabold text-ocean dark:text-mint">$200 to $1,000</span> based on business scale and initial material needs.
                         </>
-                      ) : bullet.includes("SSE Online Marketplace") ? (
+                      ) : bullet.includes("Growing Creative Online Marketplace") ? (
                         <>
-                          <span className="font-extrabold text-ocean dark:text-mint">SSE Online Marketplace</span>: Instant placement on our custom e-commerce platform, exposing finished products to regional and global buyers.
+                          <span className="font-extrabold text-ocean dark:text-mint">Growing Creative Online Marketplace</span>: Instant placement on our custom e-commerce platform, exposing finished products to regional and global buyers.
                         </>
                       ) : (
                         bullet
@@ -191,3 +191,4 @@ function HowItWorks() {
 }
 
 export default HowItWorks;
+

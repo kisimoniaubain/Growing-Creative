@@ -3,7 +3,7 @@ const Donation = require("../models/Donation");
 const buildTransactionId = () => {
   const stamp = Date.now().toString(36).toUpperCase();
   const nonce = Math.random().toString(36).slice(2, 8).toUpperCase();
-  return `SSEYC-${stamp}-${nonce}`;
+  return `Growing Creative-${stamp}-${nonce}`;
 };
 
 const allocationRules = {
@@ -87,7 +87,7 @@ const normalizeManualPhoneNumber = (rawValue) => {
   return digits;
 };
 
-const buildManualTransactionId = () => `SSEYC-MANUAL-${Date.now()}-${Math.random().toString(36).slice(2, 6).toUpperCase()}`;
+const buildManualTransactionId = () => `Growing Creative-MANUAL-${Date.now()}-${Math.random().toString(36).slice(2, 6).toUpperCase()}`;
 const manualMpesaCodePattern = /^[A-Z][A-Z0-9]{9}$/;
 const manualReceiptRateLimitState = new Map();
 const MANUAL_RECEIPT_RATE_LIMIT_MAX = Number(process.env.MANUAL_RECEIPT_RATE_LIMIT_MAX || 5);
@@ -461,8 +461,8 @@ const initiateMpesaCharge = async ({ amount, phoneNumber, provider }) => {
       PartyB: mpesa.shortcode,
       PhoneNumber: normalizedPhone,
       CallBackURL: mpesa.callbackUrl,
-      AccountReference: "SSEYC-DONATION",
-      TransactionDesc: "SSEY-C Donation",
+      AccountReference: "Growing Creative-DONATION",
+      TransactionDesc: "Growing Creative Donation",
     }),
   });
 
@@ -510,7 +510,7 @@ const initiateAirtelCharge = async ({ amount, phoneNumber, provider }) => {
     };
   }
 
-  const reference = `SSEYC-${Date.now()}`;
+  const reference = `Growing Creative-${Date.now()}`;
   const token = await getAirtelAccessToken(airtel);
 
   const chargeResponse = await fetch(`${airtel.baseUrl}/merchant/v1/payments/`, {
@@ -614,7 +614,7 @@ exports.initializeHostedCheckout = async (req, res) => {
     const normalizedEmail = String(email || "").trim().toLowerCase();
     const normalizedPhone = String(phone || "").trim();
     const normalizedCurrency = String(currency || "KES").trim().toUpperCase();
-    const fullName = `${String(firstName || "").trim()} ${String(lastName || "").trim()}`.trim() || "SSEY-C Hub Donor";
+    const fullName = `${String(firstName || "").trim()} ${String(lastName || "").trim()}`.trim() || "Growing Creative Hub Donor";
 
     if (!normalizedEmail || !normalizedPhone) {
       return res.status(400).json({ success: false, message: "Email and phone are required." });
@@ -628,7 +628,7 @@ exports.initializeHostedCheckout = async (req, res) => {
       });
     }
 
-    const txRef = `SSEYC-TXID-${Date.now()}`;
+    const txRef = `Growing Creative-TXID-${Date.now()}`;
     const response = await fetch(`${flutterwave.baseUrl}/v3/payments`, {
       method: "POST",
       headers: {
@@ -646,7 +646,7 @@ exports.initializeHostedCheckout = async (req, res) => {
           name: fullName,
         },
         customizations: {
-          title: "SSEY-C Innovation Fund",
+          title: "Growing Creative Innovation Fund",
           description: "Capitalization for Youth Revolving Seed Loans",
         },
         payment_options: flutterwave.paymentOptions,
@@ -724,7 +724,7 @@ exports.handleFlutterwaveWebhook = async (req, res) => {
 
 const donationConfig = {
   hero: {
-    headline: "Capitalize the Future: Expand the SSEY-C Revolving Fund",
+    headline: "Capitalize the Future: Expand the Growing Creative Revolving Fund",
     subheadline:
       "100% of your contribution directly funds youth seed loans and critical workshop machinery. Because our fund is revolving, your capital is repaid, recycled, and reinvested to empower generation after generation of young African entrepreneurs.",
   },
@@ -1197,3 +1197,4 @@ exports.updateDonationConfig = async (req, res) => {
     return res.status(500).json({ message: "Failed to update donation configuration.", error: error.message });
   }
 };
+

@@ -1,7 +1,7 @@
 {
   "name": "sse-org-backend",
   "version": "1.0.0",
-  "description": "Backend API for SSE.org social enterprise platform",
+  "description": "Backend API for Growing Creative social enterprise platform",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -21,3 +21,4 @@
     "nodemon": "^3.1.4"
   }
 }
+

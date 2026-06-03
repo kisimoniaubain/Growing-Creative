@@ -27,7 +27,7 @@ const pathwayCards = [
     title: "2. Market Partner",
     commitment: "Ongoing ecosystem alliance",
     description:
-      "Open wholesale pipelines, place corporate gift orders through the SSE Marketplace, or establish contract pathways for top graduates.",
+      "Open wholesale pipelines, place corporate gift orders through the Growing Creative Marketplace, or establish contract pathways for top graduates.",
   },
   {
     title: "3. Resource Ally",
@@ -117,7 +117,7 @@ function JoinUs() {
           Shape the Future of Creative Enterprise
         </h1>
         <p className="mt-4 text-base text-ink/75 dark:text-slate-300 sm:text-lg">
-          The SSE Innovation Hub is not built on infrastructure alone. It is powered by human capital. We invite industry leaders, seasoned creatives, and global experts to transfer their knowledge, expand our market networks, and anchor the next generation of self-employed youth.
+          The Growing Creative Innovation Hub is not built on infrastructure alone. It is powered by human capital. We invite industry leaders, seasoned creatives, and global experts to transfer their knowledge, expand our market networks, and anchor the next generation of self-employed youth.
         </p>
       </div>
 
@@ -257,7 +257,7 @@ function JoinUs() {
                 className="mt-1 h-4 w-4 cursor-pointer rounded border-ink/30 text-ocean focus:ring-ocean"
               />
               <label htmlFor="consent" className="select-none text-xs font-medium text-ink/70 dark:text-slate-300">
-                I agree to dedicate the selected time commitments and authorize the SSE management board to verify my professional background.
+                I agree to dedicate the selected time commitments and authorize the Growing Creative management board to verify my professional background.
               </label>
             </div>
 
@@ -274,3 +274,4 @@ function JoinUs() {
 }
 
 export default JoinUs;
+
