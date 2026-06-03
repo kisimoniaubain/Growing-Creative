@@ -22,11 +22,10 @@ app.use(express.json());
 app.use(morgan("dev"));
 
 app.get("/", (_req, res) => {
-  res.status(200).json({
-    status: "ok",
-    service: "Growing Creative API",
-    message: "Backend is running. Use /api/health for health checks.",
-  });
+  res
+    .status(200)
+    .type("text/plain")
+    .send("Growing Creative API is running. Use /api/health or /healthz for health checks.");
 });
 
 app.get("/api/health", (_req, res) => {
