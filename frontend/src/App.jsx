@@ -20,6 +20,7 @@ import Donate from "./pages/Donate";
 import DonationSuccess from "./pages/DonationSuccess";
 import DonationsAdmin from "./pages/DonationsAdmin";
 import DonationsConfigAdmin from "./pages/DonationsConfigAdmin";
+import AdminDashboard from "./pages/AdminDashboard";
 
 const getInitialTheme = () => {
   try {
@@ -109,6 +110,7 @@ function App() {
           <Route path="/donate" element={<Donate />} />
           <Route path="/invest-in-youth" element={<Donate />} />
           <Route path="/donation-success" element={<DonationSuccess />} />
+          <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="/admin/donations" element={<DonationsAdmin />} />
           <Route path="/admin/donations-config" element={<DonationsConfigAdmin />} />
         </Routes>

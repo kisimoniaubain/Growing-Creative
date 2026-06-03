@@ -1,6 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import orgLogo from "../assets/images/org-logo.png";
+
+const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
+const adminKeyStorageKey = "sse-admin-donations-key";
 
 const navItems = [
   { to: "/", label: "Home" },
@@ -26,9 +29,16 @@ const hubMenuItems = [
 function Navbar({ theme, onToggleTheme }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isAdminMenuOpen, setIsAdminMenuOpen] = useState(false);
+  const [adminKeyInput, setAdminKeyInput] = useState("");
+  const [adminUnlockError, setAdminUnlockError] = useState("");
+  const [isUnlockingAdmin, setIsUnlockingAdmin] = useState(false);
+  const [isAdminUnlocked, setIsAdminUnlocked] = useState(() => Boolean(sessionStorage.getItem(adminKeyStorageKey)));
+  const [isAdmin] = useState(true);
   const searchInputRef = useRef(null);
   const isDark = theme === "dark";
   const location = useLocation();
+  const navigate = useNavigate();
   const isAboutGroupActive = location.pathname === "/about" || location.pathname === "/join-us";
   const isHubGroupActive =
     location.pathname === "/hub" ||
@@ -45,6 +55,54 @@ function Navbar({ theme, onToggleTheme }) {
       searchInputRef.current?.focus();
     }
   }, [isSearchOpen]);
+
+  useEffect(() => {
+    setIsAdminMenuOpen(false);
+  }, [location.pathname]);
+
+  const unlockAdminSession = async (event) => {
+    event.preventDefault();
+
+    const candidateKey = adminKeyInput.trim();
+    if (!candidateKey) {
+      setAdminUnlockError("Enter admin key to continue.");
+      return;
+    }
+
+    setIsUnlockingAdmin(true);
+    setAdminUnlockError("");
+
+    try {
+      const response = await fetch(`${apiBaseUrl}/api/donations/payment-routing-summary`, {
+        headers: {
+          "x-admin-key": candidateKey,
+        },
+      });
+
+      const payload = await response.json();
+      if (!response.ok) {
+        throw new Error(payload.message || "Unable to validate admin key.");
+      }
+
+      sessionStorage.setItem(adminKeyStorageKey, candidateKey);
+      setIsAdminUnlocked(true);
+      setAdminKeyInput("");
+      setIsAdminMenuOpen(false);
+      navigate("/admin/dashboard");
+    } catch (error) {
+      setAdminUnlockError(error.message || "Unable to unlock admin session.");
+    } finally {
+      setIsUnlockingAdmin(false);
+    }
+  };
+
+  const lockAdminSession = () => {
+    sessionStorage.removeItem(adminKeyStorageKey);
+    setIsAdminUnlocked(false);
+    setAdminKeyInput("");
+    setAdminUnlockError("");
+    setIsAdminMenuOpen(false);
+  };
 
   return (
     <header className="fixed top-0 z-50 w-full bg-white/90 backdrop-blur-md dark:bg-slate-900/90">
@@ -226,17 +284,84 @@ function Navbar({ theme, onToggleTheme }) {
               )}
             </button>
             <Link
-              to="/hub"
-              className="fade-in-up delay-3 rounded-xl bg-ocean px-4 py-2 text-sm font-semibold text-white transition hover:bg-ocean/90"
-            >
-              Apply Now
-            </Link>
-            <Link
               to="/donate"
               className="fade-in-up delay-3 rounded-xl bg-sunrise px-4 py-2 text-sm font-semibold text-ink transition hover:bg-sunrise/90"
             >
               Donate
             </Link>
+            {isAdmin && (
+              <div className="relative">
+                <button
+                  type="button"
+                  onClick={() => setIsAdminMenuOpen((prev) => !prev)}
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-ocean text-xs font-bold text-white shadow-soft transition hover:bg-ocean/90 dark:bg-mint dark:text-slate-900"
+                  aria-haspopup="menu"
+                  aria-expanded={isAdminMenuOpen}
+                  aria-label="Open admin menu"
+                >
+                  GC
+                </button>
+
+                {isAdminMenuOpen && (
+                  <div className="absolute right-0 top-12 z-50 w-52 rounded-xl border border-ocean/15 bg-white p-2 shadow-soft dark:border-slate-700 dark:bg-slate-900">
+                    {!isAdminUnlocked ? (
+                      <form onSubmit={unlockAdminSession} className="space-y-2 p-1">
+                        <p className="flex items-center gap-2 px-2 py-1 text-xs font-bold uppercase tracking-[0.14em] text-ocean/70 dark:text-mint/80">
+                          <span aria-hidden="true">🔒</span>
+                          Admin Locked
+                        </p>
+                        <input
+                          type="password"
+                          value={adminKeyInput}
+                          onChange={(event) => setAdminKeyInput(event.target.value)}
+                          placeholder="Enter admin key"
+                          className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-ink outline-none transition focus:border-ocean focus:ring-2 focus:ring-ocean/25 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-100 dark:focus:border-mint dark:focus:ring-mint/25"
+                        />
+                        <button
+                          type="submit"
+                          disabled={isUnlockingAdmin}
+                          className="w-full rounded-lg bg-ocean px-3 py-2 text-sm font-semibold text-white transition hover:bg-ocean/90 disabled:opacity-70"
+                        >
+                          {isUnlockingAdmin ? "Unlocking..." : "Unlock Admin"}
+                        </button>
+                        {adminUnlockError && (
+                          <p className="px-1 text-xs text-red-600 dark:text-red-300">{adminUnlockError}</p>
+                        )}
+                      </form>
+                    ) : (
+                      <div>
+                        <p className="px-3 py-2 text-xs font-bold uppercase tracking-[0.14em] text-ocean/70 dark:text-mint/80">Admin Session</p>
+                        <Link
+                          to="/admin/dashboard"
+                          className="block rounded-lg px-3 py-2 text-sm font-semibold text-ocean transition hover:bg-ocean/5 dark:text-mint dark:hover:bg-slate-800"
+                        >
+                          Control Dashboard
+                        </Link>
+                        <Link
+                          to="/admin/donations"
+                          className="block rounded-lg px-3 py-2 text-sm font-semibold text-ink/80 transition hover:bg-ocean/5 dark:text-slate-200 dark:hover:bg-slate-800"
+                        >
+                          Donations Audit
+                        </Link>
+                        <Link
+                          to="/admin/donations-config"
+                          className="block rounded-lg px-3 py-2 text-sm font-semibold text-ink/80 transition hover:bg-ocean/5 dark:text-slate-200 dark:hover:bg-slate-800"
+                        >
+                          Donate Config
+                        </Link>
+                        <button
+                          type="button"
+                          onClick={lockAdminSession}
+                          className="mt-1 w-full rounded-lg px-3 py-2 text-left text-sm font-semibold text-ink/70 transition hover:bg-ink/5 dark:text-slate-300 dark:hover:bg-slate-800"
+                        >
+                          Lock Session
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         </nav>
       </div>
@@ -300,18 +425,25 @@ function Navbar({ theme, onToggleTheme }) {
               )
             ))}
             <Link
-              to="/hub"
-              onClick={() => setIsOpen(false)}
-              className="fade-in-up delay-3 inline-flex w-max rounded-xl bg-ocean px-4 py-2 text-sm font-semibold text-white"
-            >
-              Apply Now
-            </Link>
-            <Link
               to="/donate"
               onClick={() => setIsOpen(false)}
               className="fade-in-up delay-3 inline-flex w-max rounded-xl bg-sunrise px-4 py-2 text-sm font-semibold text-ink"
             >
               Donate
+            </Link>
+            <Link
+              to="/admin/donations"
+              onClick={() => setIsOpen(false)}
+              className="fade-in-up delay-3 inline-flex w-max rounded-xl border border-ocean/25 px-4 py-2 text-sm font-semibold text-ocean dark:border-slate-600 dark:text-mint"
+            >
+              Admin Dashboard
+            </Link>
+            <Link
+              to="/admin/dashboard"
+              onClick={() => setIsOpen(false)}
+              className="fade-in-up delay-3 inline-flex w-max rounded-xl border border-ocean/25 px-4 py-2 text-sm font-semibold text-ocean dark:border-slate-600 dark:text-mint"
+            >
+              Control Dashboard
             </Link>
           </div>
         </nav>

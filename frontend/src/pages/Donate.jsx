@@ -162,7 +162,7 @@ function Donate() {
   const [paymentGate, setPaymentGate] = useState("mobile-money");
   const [mobileProvider, setMobileProvider] = useState("mpesa");
   const [donorMobileNumber, setDonorMobileNumber] = useState("");
-  const [mpesaPin, setMpesaPin] = useState("");
+
   const [mobileTransactionCode, setMobileTransactionCode] = useState("");
   const [isSendingMobileMoney, setIsSendingMobileMoney] = useState(false);
   const [mobileChargeRequestId, setMobileChargeRequestId] = useState("");
@@ -290,8 +290,7 @@ function Donate() {
   const normalizedTransactionCode = mobileTransactionCode.trim().toUpperCase();
   const hasTransactionCodeInput = normalizedTransactionCode.length > 0;
   const isTransactionCodeValid = /^[A-Z][A-Z0-9]{9}$/.test(normalizedTransactionCode);
-  const hasMpesaPinInput = mpesaPin.trim().length > 0;
-  const isMpesaPinValid = /^\d{4}$/.test(mpesaPin.trim());
+
   const canSendMpesa = mpesaReadiness.readyLiveCharge || mpesaReadiness.simulationEnabled;
 
   const handleTierSelect = (amount) => {
@@ -336,11 +335,6 @@ function Donate() {
       return;
     }
 
-    if (mobileProvider === "mpesa" && !isMpesaPinValid) {
-      setSubmitError("Enter your 4-digit M-Pesa PIN before sending money.");
-      return;
-    }
-
     if (mobileProvider === "mpesa" && !canSendMpesa) {
       setSubmitError("Live M-Pesa is not ready yet. Complete all readiness checks first.");
       return;
@@ -358,7 +352,6 @@ function Donate() {
           provider: mobileProvider,
           amount: numericAmount,
           phoneNumber: donorMobileNumber.trim(),
-          pin: mobileProvider === "mpesa" ? mpesaPin.trim() : undefined,
         }),
       });
 
@@ -370,9 +363,6 @@ function Donate() {
 
       setMobileChargeRequestId(payload.checkoutRequestId || "");
       setMobileChargeMessage(payload.customerMessage || payload.message || "Prompt sent to your phone.");
-      if (mobileProvider === "mpesa") {
-        setMpesaPin("");
-      }
     } catch (error) {
       const isNetworkFailure = !error?.message || String(error.message).toLowerCase().includes("failed to fetch");
       setSubmitError(
@@ -950,32 +940,11 @@ function Donate() {
                           className="mt-2 w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm text-ink outline-none transition focus:border-ocean focus:ring-2 focus:ring-ocean/25 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-100 dark:focus:border-mint dark:focus:ring-mint/25"
                         />
                         {mobileProvider === "mpesa" && (
-                          <>
-                            <label className="mt-3 block text-xs font-bold uppercase tracking-[0.15em] text-ink/70 dark:text-slate-300">
-                              Step 3: Enter M-Pesa PIN
-                            </label>
-                            <input
-                              type="password"
-                              inputMode="numeric"
-                              value={mpesaPin}
-                              onChange={(event) => setMpesaPin(event.target.value.replace(/\D/g, "").slice(0, 4))}
-                              maxLength={4}
-                              placeholder="4-digit PIN"
-                              className="mt-2 w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm text-ink outline-none transition focus:border-ocean focus:ring-2 focus:ring-ocean/25 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-100 dark:focus:border-mint dark:focus:ring-mint/25"
-                            />
-                            {hasMpesaPinInput && (
-                              <p
-                                className={`mt-1 text-xs font-semibold ${
-                                  isMpesaPinValid
-                                    ? "text-emerald-700 dark:text-emerald-300"
-                                    : "text-red-700 dark:text-red-300"
-                                }`}
-                              >
-                                {isMpesaPinValid ? "PIN format is valid." : "PIN must be exactly 4 digits."}
-                              </p>
-                            )}
-                          </>
+                          <p className="mt-1 text-xs text-ink/60 dark:text-slate-400">
+                            Step 3: After clicking Send Money, a prompt will appear on your phone — enter your M-Pesa PIN there.
+                          </p>
                         )}
+
                         <div className="mt-2 flex flex-wrap gap-2">
                           <button
                             type="button"
@@ -983,10 +952,10 @@ function Donate() {
                             disabled={
                               isSendingMobileMoney
                               || !donorSmsNumber
-                              || (mobileProvider === "mpesa" && (!isMpesaPinValid || !canSendMpesa || mpesaReadiness.loading))
+                              || (mobileProvider === "mpesa" && (!canSendMpesa || mpesaReadiness.loading))
                             }
                             className={`inline-flex items-center rounded-xl px-4 py-2 text-xs font-bold transition ${
-                              isSendingMobileMoney || !donorSmsNumber || (mobileProvider === "mpesa" && (!isMpesaPinValid || !canSendMpesa || mpesaReadiness.loading))
+                              isSendingMobileMoney || !donorSmsNumber || (mobileProvider === "mpesa" && (!canSendMpesa || mpesaReadiness.loading))
                                 ? "cursor-not-allowed bg-slate-300 text-slate-600 dark:bg-slate-700 dark:text-slate-300"
                                 : "bg-ocean text-white hover:bg-ocean/90"
                             }`}

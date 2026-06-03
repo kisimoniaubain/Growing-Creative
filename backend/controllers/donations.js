@@ -566,7 +566,7 @@ const initiateAirtelCharge = async ({ amount, phoneNumber, provider }) => {
 
 exports.initiateMobileMoneyCharge = async (req, res) => {
   try {
-    const { provider, amount, phoneNumber, pin } = req.body;
+    const { provider, amount, phoneNumber } = req.body;
     const normalizedProvider = String(provider || "").trim();
     const numericAmount = Number(amount);
 
@@ -576,13 +576,6 @@ exports.initiateMobileMoneyCharge = async (req, res) => {
 
     if (!['mpesa', 'airtel-money'].includes(normalizedProvider)) {
       return res.status(400).json({ message: "Select M-Pesa or Airtel Money." });
-    }
-
-    if (normalizedProvider === 'mpesa') {
-      const normalizedPin = String(pin || "").trim();
-      if (!/^\d{4}$/.test(normalizedPin)) {
-        return res.status(400).json({ message: "Enter a valid 4-digit M-Pesa PIN." });
-      }
     }
 
     const result = normalizedProvider === 'mpesa'
