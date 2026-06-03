@@ -12,4 +12,7 @@ export default defineConfig({
       },
     },
   },
+  preview: {
+    allowedHosts: ["growing-creative.onrender.com", ".onrender.com"],
+  },
 });
