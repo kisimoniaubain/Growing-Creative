@@ -21,8 +21,20 @@ app.use(cors({ origin: process.env.CLIENT_URL || "*" }));
 app.use(express.json());
 app.use(morgan("dev"));
 
+app.get("/", (_req, res) => {
+  res.status(200).json({
+    status: "ok",
+    service: "Growing Creative API",
+    message: "Backend is running. Use /api/health for health checks.",
+  });
+});
+
 app.get("/api/health", (_req, res) => {
   res.status(200).json({ status: "ok", service: "Growing Creative API" });
+});
+
+app.get("/healthz", (_req, res) => {
+  res.status(200).json({ status: "ok" });
 });
 
 app.use("/api/auth", authRoutes);
