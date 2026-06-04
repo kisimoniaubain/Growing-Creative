@@ -893,14 +893,7 @@ function Donate() {
 
                     {paymentGate === "mobile-money" && (
                       <div className="mt-4 rounded-2xl border border-mint/35 bg-mint/10 p-4 dark:border-mint/25 dark:bg-mint/10">
-                        <p className="text-xs font-bold uppercase tracking-[0.16em] text-ocean dark:text-mint">Manual Direct-Pay Option</p>
-                        <div className="mt-2 rounded-xl border border-ocean/20 bg-ocean/5 px-3 py-3 dark:border-mint/25 dark:bg-mint/10">
-                          <p className="text-xs font-bold uppercase tracking-[0.14em] text-ocean dark:text-mint">Step 1: Send Funds Manually</p>
-                          <p className="mt-1 text-xs text-ink/70 dark:text-slate-300">
-                            Open M-Pesa Send Money and transfer to this receiver wallet number.
-                          </p>
-                          <p className="mt-1 text-base font-extrabold text-ocean dark:text-mint">{mobileMoneyPayNumber}</p>
-                        </div>
+                        <p className="text-xs font-bold uppercase tracking-[0.16em] text-ocean dark:text-mint">Mobile Money Payment</p>
                         <div className="mt-2 grid grid-cols-1 gap-2 sm:grid-cols-2">
                           {[
                             { key: "mpesa", label: "M-Pesa" },
